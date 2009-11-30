@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/workspace/SGCT/war/WEB-INF/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/workspace/SGCT/war/WEB-INF/lib/ammentos_1.3.7.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/workspace/SGCT/war/WEB-INF/lib/gwtiger-inf300.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
