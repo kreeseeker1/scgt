@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>SisGesConfTec.html</welcome-file>
+  </welcome-file-list>
+  
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>InscricaoService</servlet-name>
+    <servlet-class>br.unicamp.ic.sgct.server.dominio.servicos.InscricaoServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InscricaoService</servlet-name>
+    <url-pattern>/sisgesconftec/inscricao</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CancelamentoService</servlet-name>
+    <servlet-class>br.unicamp.ic.sgct.server.dominio.servicos.CancelamentoServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CancelamentoService</servlet-name>
+    <url-pattern>/sisgesconftec/cancelamento</url-pattern>
+  </servlet-mapping>
+    
+  <servlet>
+    <servlet-name>InfoGeralService</servlet-name>
+    <servlet-class>br.unicamp.ic.sgct.server.dominio.servicos.InfoGeralServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InfoGeralService</servlet-name>
+    <url-pattern>/sisgesconftec/info-geral</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ConferenciaService</servlet-name>
+    <servlet-class>br.unicamp.ic.sgct.server.dominio.servicos.ConferenciaServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConferenciaService</servlet-name>
+    <url-pattern>/sisgesconftec/conferencia</url-pattern>
+  </servlet-mapping>
+</web-app>

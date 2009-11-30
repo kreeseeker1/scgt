@@ -1,0 +1,484 @@
+/** Add css rules here for your application. */
+.cabec {
+	float: left;
+	width: 100%;
+	height: 90px;
+	border-top: 6px solid #003399;
+	border-bottom: 3px solid #666;
+}
+
+.gwt-Button-Form {
+	display: block;
+	font-size: 111%;
+	font-weight: 500;
+	font-variant: small-caps;
+}
+
+.gwt-Label-Logo {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 197%;
+	color: #0000FF;
+	font-weight: bold;
+	font-variant: small-caps;
+}
+
+.gwt-Label-Form {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 111%;
+	font-weight: 500;
+	font-variant: normal;
+}
+
+.gwt-Label-msgWidgetErro {
+	font-family: 'verdana', sans-serif;
+	font-size: 108%;
+	color: #C85A17;
+	font-weight: bold;
+	font-variant: normal;
+}
+
+.gwt-Label-msgWidgetSucesso {
+	font-family: 'verdana', sans-serif;
+	font-size: 108%;
+	color: #4CC552;
+	font-weight: bold;
+	font-variant: normal;
+}
+
+body {
+	background-color: white;
+	color: black;
+	font-family: Arial, sans-serif;
+	font-size: small;
+	margin: 8px;
+	margin-top: 3px;
+}
+
+a {
+	color: darkblue;
+}
+
+a:visited {
+	color: darkblue;
+}
+
+.gwt-DialogBox {
+	border: 2px solid #AAAAAA;
+	background-color: white;
+}
+
+.gwt-DialogBox .Caption {
+	background-image: url(gray_gradient.gif);
+	background-repeat: repeat-x;
+	padding: 4px;
+	padding-bottom: 8px;
+	font-weight: bold;
+	cursor: default;
+}
+
+.gwt-MenuBar {
+	background-color: #C3D9FF;
+	cursor: default;
+}
+
+.gwt-MenuItem {
+	font-size: 80%;
+	margin: 1px;
+	cursor: default;
+}
+
+.gwt-MenuItem-selected {
+	background-color: #E8EEF7;
+}
+
+.gwt-Tree {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.gwt-Tree .gwt-TreeItem {
+	font-size: 80%;
+	cursor: default;
+}
+
+.gwt-Tree .gwt-TreeItem-selected {
+	background-color: #C3D9FF;
+}
+
+.gwt-StackPanel {
+	background-color: white;
+	border: 1px solid #AAAAAA;
+	width: 15em;
+}
+
+.gwt-StackPanel .gwt-StackPanelItem {
+	background-image: url(gray_gradient.gif);
+	/*	background-image: url(gradient.gif);*/
+	background-repeat: repeat-x;
+	background-color: #EEEEEE;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.gwt-StackPanel .gwt-StackPanelItem-selected {
+	
+}
+
+.gwt-TabPanel {
+	
+}
+
+.gwt-TabPanelBottom {
+	border-left: 1px solid #87B3FF;
+}
+
+.gwt-TabBar {
+	background-color: #C3D9FF;
+	font-size: smaller;
+}
+
+.gwt-TabBar .gwt-TabBarFirst {
+	height: 100%;
+	border-bottom: 1px solid #87B3FF;
+	padding-left: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarRest {
+	border-bottom: 1px solid #87B3FF;
+	padding-right: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+	border-top: 1px solid #C3D9FF;
+	border-bottom: 1px solid #87B3FF;
+	padding: 2px;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+	font-weight: bold;
+	background-color: #E8EEF7;
+	border-top: 1px solid #87B3FF;
+	border-left: 1px solid #87B3FF;
+	border-right: 1px solid #87B3FF;
+	border-bottom: 1px solid #E8EEF7;
+	padding: 2px;
+	cursor: default;
+}
+
+.gwtiger-form {
+	font-family: Verdana, Arial, Helvetica, Sanss-serif;
+	font-size: 10px;
+	background-color: white;
+	padding: 6px;
+	border: median double #666;
+	width: 30em;
+}
+
+.gwtiger-form-title {
+	font-size: 14px;
+	text-align: center;
+}
+
+.gwtiger-form-error {
+	font-size: 12px;
+	text-align: center;
+	color: red;
+}
+
+.gwtiger-form-loading-text {
+	font-size: 12px;
+	text-align: right;
+	float: right;
+	color: white;
+	background-color: red;
+	cursor: wait;
+}
+
+.gwtiger-form-label { /*
+	font-size: 12px;
+	width: 6em;
+	float: left;
+	text-align: right;
+	margin: .5em .5em;
+	clear: both;
+*/
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 89%;
+	font-weight: 500;
+	font-variant: normal;
+	float: left;
+	text-align: right;
+	margin: .5em .5em;
+	clear: both;
+}
+
+.gwtiger-form-input {
+	float: left;
+	margin: .5em 0;
+	width: 250px;
+}
+
+.gwtiger-layouts-Label {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 111%;
+	font-weight: 500;
+	font-variant: normal;
+}
+
+.grid-hover {
+	background-color: blue;
+	color: white;
+	cursor: pointer;
+}
+
+.rp {
+	background-color: #c3d9ff;
+}
+
+/* ********Table*********** */
+TABLE.gwtiger-table TD {
+	font: 0.8em/ 1.6em "Trebuchet MS", Verdana, sans-serif;
+	border-collapse: collapse
+}
+
+table.gwtiger-table,caption {
+	margin: 0 auto;
+	border-spacing: 0px;
+	border-right: 1px solid #CCC;
+	border-left: 1px solid #CCC background-color :   #F7F7F7;
+	color: #000000;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.gwtiger-tableHeader {
+	background-color: #737CA1;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: center;
+}
+
+.gwtiger-grid-odd {
+	background-color: #F7F7F7;
+	color: #000000;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.gwtiger-grid-even {
+	font-family: tahoma, sans-serif;
+	color: #000000;
+	background-color: #F1EFEF;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.gwtiger-grid-hover {
+	color: #000000;
+	background-color: #DCDCDC;
+}
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
+}
+
+.sendButton {
+	display: block;
+	font-size: 16pt;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400px;
+}
+
+.dialogVPanel {
+	margin: 5px;
+}
+
+.serverResponseLabelError {
+	color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+	margin: 15px 6px 6px;
+}
+
+.mail-TopPanel {
+	height: 60px;
+}
+
+.mail-TopPanel table {
+	font-size: 80%;
+}
+
+.mail-TopPanel .gwt-Image {
+	margin-left: 10px;
+	position: absolute;
+}
+
+.mail-TopPanelLinks {
+	font-size: 80%;
+}
+
+.mail-AboutText {
+	width: 24em;
+	font-size: 80%;
+	padding: 10px;
+	text-align: left;
+}
+
+.mail-Contacts td,.mail-Tasks td {
+	padding: 4px 0 0 0;
+}
+
+.mail-Contacts table {
+	font-size: 80%;
+}
+
+.mail-Tasks table {
+	font-size: 80%;
+}
+
+.mail-List {
+	border-left: 1px solid #666;
+	border-right: 1px solid #666;
+	border-bottom: 1px solid #666;
+	font-size: 80%;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.mail-List td {
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	padding: 2px 0 2px 10px;
+}
+
+.mail-ListHeader td {
+	border-top: none;
+}
+
+.mail-ListHeader {
+	background: #c1eec8 url(gradient.gif) repeat-x 0px -1px;
+	font-weight: bold;
+}
+
+.mail-ListHeader .mail-ListNavBar .gwt-HTML {
+	font-weight: bold;
+}
+
+.mail-ListHeader td {
+	padding: 2px 0 2px 10px;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #666;
+}
+
+.mail-ListNavBar table {
+	font-size: 80%;
+}
+
+.mail-ListNavBar td {
+	border: none;
+}
+
+.mail-ListNavBar a {
+	margin: 0 8px;
+}
+
+.mail-SelectedRow td {
+	border-bottom: 1px solid #666;
+	border-top: 1px solid #666;
+}
+
+.mail-SelectedRow {
+	background: #eee;
+}
+
+.mail-Toolbar .gwt-Image {
+	
+}
+
+.mail-ToolButton {
+	font-size: 80%;
+	width: 10em;
+}
+
+.mail-Detail {
+	border: 1px solid #666;
+	margin-top: 4px;
+	text-align: left;
+}
+
+.mail-DetailHeader {
+	background: #eee;
+	border-bottom: 1px solid #666;
+	padding: 6px 4px;
+	text-align: left;
+}
+
+.mail-DetailHeader td {
+	padding: 0;
+}
+
+.mail-DetailInner {
+	background-color: white;
+	font-size: 80%;
+	text-align: left;
+}
+
+.mail-DetailSubject {
+	padding: 2px 10px;
+	font-weight: bold;
+}
+
+.mail-DetailSender {
+	font-size: 80%;
+	padding: 2px 10px;
+}
+
+.mail-DetailRecipient {
+	font-size: 80%;
+	padding: 2px 10px;
+}
+
+.mail-DetailBody {
+	line-height: 120%;
+	padding: 20px 40px 20px 10px;
+	font-family: 'verdana', sans-serif;;
+	font-size: 90%;
+	text-align: left;
+}
+
+.mail-ContactPopup {
+	background: #fff;
+	border: 1px solid #666;
+	padding: 4px;
+}
+
+.mail-ContactPopupName {
+	font-size: 80%;
+	font-weight: bold;
+}
+
+.mail-ContactPopupEmail {
+	font-size: 80%;
+	font-style: italic;
+}
+
+.mail-StackContent {
+	height: 100%;
+	text-align: left;
+}
+
+.mail-Contacts {
+	border-bottom: none;
+}

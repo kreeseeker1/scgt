@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Arquivo para inicializar utilitario do Hsqldb de gerenciamento de base de dados -->
+
+<project name="hsqldb-sgctbd" default="createdb-sql-script" basedir=".">
+	<property file="${basedir}/build.properties" />
+
+	<!-- FORWARD ENGINEERING DA ESTRATURA DA BASE DE DADOS A PARTIR DAS ANOTACOES AMMNENTOS NAS CLASSES DE DOMINIO -->
+	<path id="ammentos.class.path">
+		<pathelement location = "${build_path}"/>
+		<fileset dir="${lib_path}">
+			<include name="ammentos_1.3.7.jar"/>
+		</fileset>
+		<fileset dir="${tools_path}">
+			<include name="ammentos_ant_0.0.3.jar"/>
+		</fileset>
+	</path>
+
+	<taskdef name="createdb"
+	        classname="it.biobytes.ammentos_ant.CreateDbTask"
+	        classpathref="ammentos.class.path"/>
+
+	<target name="createdb-sql-script">
+		<echo>=========================================================================================================</echo>
+		<echo>***** Foi acionado o utilitario [it.biobytes.ammentos_ant.CreateDbTask] do Ammentos Persistence Framework.</echo>
+		<echo>      A partir das anotacoes da API do Ammentos presentes nas entidades do pacote ${persistent_entities_package}, e</echo>
+		<echo>      indicadas pela propriedade {persistent_entities_package}, sera gerado o script SQL de criacao da estrutura</echo> 
+		<echo>      da base de dados (DDL) em SGCT/war/WEB-INF/bd/scripts/sgct-bd.ddl.</echo>
+		<echo>      Execute a TASK hsqldb-file-startup e execute o conteudo do script SQL gerado para re-criar a base de dados quando</echo>
+		<echo>      houver *alteracao* estrutural. Na sequencia execute os scripts SQL: constraints.ddl, queries.sql</echo>
+		<echo>=========================================================================================================</echo>
+
+		<createdb destfile="../scripts/sgct-bd.ddl">
+	      <package name="${persistent_entities_package}"/>
+	    </createdb>
+	  </target>
+</project>
