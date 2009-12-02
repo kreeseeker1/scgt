@@ -1,5 +1,6 @@
 package br.unicamp.ic.sgct.client.apresentacao.ucs;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -28,6 +29,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
@@ -37,11 +39,12 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
-public class InscricaoScreen extends BaseScreen implements TableListener {
+public class InscricaoScreen extends BaseScreen implements TableListener, ClickListener {
 	private String strDataPagto;
 	private Date data;
 	private DateFieldWidget dtField;
@@ -63,6 +66,9 @@ public class InscricaoScreen extends BaseScreen implements TableListener {
 	private static final String MSG_CELULAR_ERR = "Telefone celular informado n\u00e3o \u00e9 v\u00e1lido!";
 	private static final String MSG_FONE_ERR = "Telefone residencial informado n\u00e3o \u00e9 v\u00e1lido";
 	private static final String MSG_DATA_ERR = "Data de efetiva\u00e7\u00e3o do pagamento deve ser anterior ao dia de hoje!";
+	private static final String MSG_SESSOES_EMPTY = "Favor selecionar ao menos um evento para se inscrever.";
+	private static final String MSG_VAGAS_1 = "Não há mais vagas para o(s) evento(s) selecionado(s):";
+	private static final String MSG_VAGAS_2 = ". Favor selecionar outro(s) de seu interesse.";
 	
 	private InscricaoListener controladora;
 
@@ -84,7 +90,8 @@ public class InscricaoScreen extends BaseScreen implements TableListener {
 	private VerticalPanel panel = new VerticalPanel();
 	private HoverGridWidget gridEventos = new HoverGridWidget();
 	private VerticalPanel panelDetalhesConf = new VerticalPanel();
-
+	private List sessoesSelecionadas = new ArrayList();
+	
 	private List<ConferenciaTO> conferencias;
 	private ConferenciaListener ctrlConferencia;
 
@@ -240,6 +247,15 @@ public class InscricaoScreen extends BaseScreen implements TableListener {
 		valid = dtField.validate() && valid;
 		valid = ( strDataPagto != null ? true : false ) && valid;
 
+		//INICIO - EXERC. 4
+		
+		if (sessoesSelecionadas.isEmpty()) {
+			this.controladora.getMensagemWidget().setMensagemErro(MSG_SESSOES_EMPTY);
+			return false;
+		}
+		
+		//FIM - EXERC. 4
+		
 		if (!valid) {
 			this.controladora.getMensagemWidget().setMensagemErro(MSG_REQUIRED_ERR);			
 			return valid;
@@ -394,27 +410,19 @@ public class InscricaoScreen extends BaseScreen implements TableListener {
 
 		showLoading(true);
 
-/*		List<SessoesConferenciaTO> lstSessoesTO = to.getSessoesConferencia();
-
-		if (lstSessoesTO != null && !lstSessoesTO.isEmpty()) {
-			System.out.println("sessoes conf. size= " + lstSessoesTO.size() );
-
-			for (SessoesConferenciaTO sessoesConfTO : lstSessoesTO) {
-				panelDetalhesConf.add( new CheckBox( sessoesConfTO.getData() + " - " + sessoesConfTO.getTema() ) );
-			}
-		}*/
-
+		//INICIO - EXERC. 3		
 		List<SessaoTO> lstSessoesTO = to.getSessoesConferencia();
 
 		if (lstSessoesTO != null && !lstSessoesTO.isEmpty()) {
-			System.out.println("sessoes conf. size= " + lstSessoesTO.size() );
-
+			//System.out.println("sessoes conf. size= " + lstSessoesTO.size() );
 			
 			for (SessaoTO sessoesConfTO : lstSessoesTO) {
-				panelDetalhesConf.add( new CheckBox( sessoesConfTO.getData() + " - " + sessoesConfTO.getTema() ) );
+				
+				panelDetalhesConf.add( createCheckBox( sessoesConfTO.getData() + " - " + sessoesConfTO.getTema(), this ) );
+
 			}
 		}
-
+		//FIM - EXERC. 3
 		
 		panelDetalhesConf.setVisible(true);
 		showLoading(false);
@@ -517,4 +525,44 @@ public class InscricaoScreen extends BaseScreen implements TableListener {
 		gridEventos.addHeader(2, "  In\u00edcio  ");
 		gridEventos.addHeader(3, "  T\u00e9rmino  ");
 	}
+
+	//INICIO - EXERC. 4
+	/**
+	 * 
+	 */
+	public void onClick(Widget sender) {
+		
+		sessoesSelecionadas = new ArrayList();
+		
+		Iterator sessoesIterator = this.panelDetalhesConf.iterator();
+
+		sessoesIterator.next();
+		
+		while (sessoesIterator.hasNext()) {
+			
+			CheckBox checkBox = (CheckBox) sessoesIterator.next();
+
+			if (checkBox.isChecked()) {
+				//System.out.println(checkBox.getText());
+				sessoesSelecionadas.add( checkBox.getText());
+			}
+		}
+	}
+	//FIM - EXERC. 4
+	
+	//INICIO - EXERC. 3
+	/**
+	 * 
+	 */
+	private static CheckBox createCheckBox(String text, ClickListener listener) {
+		
+		CheckBox checkBox = new CheckBox(text);
+		checkBox.setText(text);
+		
+		checkBox.addClickListener(listener);
+		
+		return checkBox;
+	}
+	//FIM - EXERC. 3
+
 }
