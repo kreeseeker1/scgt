@@ -37,6 +37,9 @@ public class Sessao implements Serializable {
 	@PersistentField(fieldName="id_conf", type=FieldTypeEnum.ENTITY)
 	private Conferencia conferencia;
 
+	@PersistentField(fieldName="id_insc", type=FieldTypeEnum.ENTITY)
+	private Inscricao inscricao;
+	
 	@PersistentField(size="20")
 	private String tema;
 
@@ -126,6 +129,14 @@ public class Sessao implements Serializable {
 
 	public void setApresentacoes(List<Apresentacao> apresentacoes) {
 		this.apresentacoes = apresentacoes;
+	}
+	
+	public Inscricao getInscricao() {
+		return inscricao;
+	}
+
+	public void setInscricao(Inscricao inscricao) {
+		this.inscricao = inscricao;
 	}
 
 	public boolean isMatutina() {

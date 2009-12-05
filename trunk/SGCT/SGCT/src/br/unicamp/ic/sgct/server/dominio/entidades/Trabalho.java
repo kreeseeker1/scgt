@@ -90,7 +90,7 @@ public class Trabalho implements Serializable {
 	        + "idTrabalho = " + this.idTrabalho + TAB
 	        + "titulo = " + this.titulo + TAB
 	        + "resumo = " + this.resumo + TAB
-	        + "preletor = " + (this.preletor != null ? this.preletor.toString() + TAB : "NULL ")
+	        + "preletor = " + (this.preletor != null ? this.preletor.getEmail() + TAB : "NULL ")
 	        + " )";
 	
 	    return retValue;

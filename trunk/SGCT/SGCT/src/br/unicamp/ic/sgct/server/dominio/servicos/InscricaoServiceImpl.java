@@ -8,6 +8,7 @@ import it.biobytes.ammentos.query.SqlQueryFilter;
 import br.unicamp.ic.sgct.client.aplicacao.ucs.inscricao.InscricaoService;
 import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
+import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao;
 import br.unicamp.ic.sgct.server.dominio.entidades.Usuario;
 import br.unicamp.ic.sgct.server.recursos.persistencia.AmmentosConnection;
 
@@ -35,6 +36,13 @@ public class InscricaoServiceImpl extends RemoteServiceServlet implements
 					new SqlQueryFilter("email like '" + usuarioPersist.getEmail() + 
 							"'"));
 
+			Inscricao inscricaoPersist = new Inscricao();
+			
+			inscricaoPersist.setDt_inscricao(usuario.getInscUsuario().get(0).getDt_inscricao());
+			inscricaoPersist.setDt_pagamento(usuario.getInscUsuario().get(0).getDt_pagamento());
+			inscricaoPersist.setSituacao(usuario.getInscUsuario().get(0).getSituacao());
+			inscricaoPersist.setUsuario(usuarioPersist);
+			
 			Ammentos.openTransaction();
 			
 			// Se o usuário não existia no banco de dados, insira-o normalmente
@@ -42,6 +50,7 @@ public class InscricaoServiceImpl extends RemoteServiceServlet implements
 
 				Ammentos.save( usuarioPersist.getPessoa() );
 				Ammentos.save(usuarioPersist);
+				Ammentos.save(inscricaoPersist);
 	
 			}
 			// Se um usuário foi encontrado, execute um update alterando o
@@ -49,17 +58,20 @@ public class InscricaoServiceImpl extends RemoteServiceServlet implements
 			// tenha se isncrito e esteja com a inscricao cancelada
 			if (lstUsuario != null && !lstUsuario.isEmpty() ) {
 				// Verifica se o usuário já estava inscrito, com inscricao ativa
-				if (lstUsuario.get(0).getInscricaoAtiva().equals("S")) {
-					throw new InfraException("Usu\u00e1rio j\u00e1 est\u00e1 " +
-					"inscrito para o evento!");
-					
+
+				for (Inscricao inscricao : lstUsuario.get(0).getInscUsuario()) {
+					if (inscricao.getSituacao() == 1) {
+						throw new InfraException("Usu\u00e1rio j\u00e1 est\u00e1 " +
+						"inscrito para o evento!");
+					}
 				}
 				
 				// Atualiza atributo INSCRICAOATIVA para 'N'
-				lstUsuario.get(0).setInscricaoAtiva("S");
+				//lstUsuario.get(0).setInscricaoAtiva("S");
 				
 				Ammentos.save ( lstUsuario.get(0) );
 				Ammentos.save ( lstUsuario.get(0).getPessoa() );
+				Ammentos.save(inscricaoPersist);
 
 			}
 			Ammentos.commitTransaction();

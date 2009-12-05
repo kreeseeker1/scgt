@@ -10,6 +10,7 @@ import java.util.List;
 import br.unicamp.ic.sgct.client.aplicacao.ucs.cancelamento.CancelamentoService;
 import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
+import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao;
 import br.unicamp.ic.sgct.server.dominio.entidades.Usuario;
 import br.unicamp.ic.sgct.server.recursos.persistencia.AmmentosConnection;
 
@@ -67,9 +68,16 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 				}
 				// Verificar se o usuário já cancelou sua inscricao, através do 
 				// atributo INSCRICAOATIVA da tabela T_USUARIO (se for 'N', ja foi cancelado)
-				if (lstUsuario.get(0).getInscricaoAtiva().equals("N")) {
-					throw new InfraException("Usu\u00e1rio n\u00e3o se encontra mais " +
-					"inscrito para o evento!");
+//				if (lstUsuario.get(0).getInscricaoAtiva().equals("N")) {
+//					throw new InfraException("Usu\u00e1rio n\u00e3o se encontra mais " +
+//					"inscrito para o evento!");
+//				}
+				
+				for (Inscricao inscricao : lstUsuario.get(0).getInscUsuario()) {
+					if (inscricao.getSituacao() == 3) {
+						throw new InfraException("Usu\u00e1rio j\u00e1 est\u00e1 " +
+						"inscrito para o evento!");
+					}
 				}
 				
 				// Verifica se jï¿½ se passaram 7 dias da inscricao no evento
@@ -79,7 +87,11 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 
 				if (aceitarCancelamento(dataAtual, dataPgto)) {
 					// Atualiza atributo INSCRICAOATIVA para 'N'
-					lstUsuario.get(0).setInscricaoAtiva("N");
+					//lstUsuario.get(0).setInscricaoAtiva("N");
+					
+					Inscricao inscricao = new Inscricao();
+					inscricao.setSituacao(3);
+					lstUsuario.get(0).addInscUsuario(inscricao);
 					
 					// Processa o cancelamento do usuario
 					Ammentos.openTransaction();
