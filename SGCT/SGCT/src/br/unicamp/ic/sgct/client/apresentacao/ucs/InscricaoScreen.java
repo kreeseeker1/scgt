@@ -19,6 +19,7 @@ import br.unicamp.ic.sgct.client.apresentacao.widgets.LabelCampoForm;
 import br.unicamp.ic.sgct.client.apresentacao.widgets.MensagemUI;
 import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
 import br.unicamp.ic.sgct.client.dominio.to.ConferenciaTO;
+import br.unicamp.ic.sgct.client.dominio.to.InscricaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.PessoaTO;
 import br.unicamp.ic.sgct.client.dominio.to.SessaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
@@ -56,6 +57,8 @@ public class InscricaoScreen extends BaseScreen implements TableListener, ClickL
 
 	private UsuarioTO usuario = null;    
 
+	List<SessaoTO> lstSessoesTO = new ArrayList<SessaoTO>();
+	
 	//recursos Inscricao UI
     private static final String MSG_REQUIRED_ERR = "Campo(s) obrigatorio(s) n\u00e3o preenchido(s)!";
 	private static final String MSG_PASSWD_ERR = "Senha e sua confirma\u00e7\u00e3o n\u00e3o conferem!!";
@@ -335,7 +338,26 @@ public class InscricaoScreen extends BaseScreen implements TableListener, ClickL
 	    else {
         	this.usuario.setEmail(txtbEmail.getText());
 			this.usuario.setSenha(txtbSenha.getText());
-			this.usuario.setInscricaoAtiva("S");
+			//this.usuario.setInscricaoAtiva("S");
+			
+			InscricaoTO inscricaoTO = new InscricaoTO();
+			inscricaoTO.setDt_inscricao( _dtTimeFormat.parse( strDataPagto ));
+			inscricaoTO.setDt_pagamento( _dtTimeFormat.parse( strDataPagto ));
+			inscricaoTO.setSituacao(1);
+			
+			for (SessaoTO sessoesConfTO : lstSessoesTO) {
+				
+				for (Iterator iterator = sessoesSelecionadas.iterator(); iterator.hasNext();) {
+					String sessoes = (String) iterator.next();
+					
+					if (sessoes.equalsIgnoreCase(sessoesConfTO.getData() + " - " + sessoesConfTO.getTema())) {
+
+						inscricaoTO.addSessoesInscricao(sessoesConfTO);	
+					}
+				}
+			}
+			
+			this.usuario.addInscUsuario(inscricaoTO);
 			
 			if (dtField.getText() != null && !"".equals( dtField.getText() )) {
 				// System.out.println("strDataPagto: " + strDataPagto);
@@ -411,7 +433,7 @@ public class InscricaoScreen extends BaseScreen implements TableListener, ClickL
 		showLoading(true);
 
 		//INICIO - EXERC. 3		
-		List<SessaoTO> lstSessoesTO = to.getSessoesConferencia();
+		lstSessoesTO = to.getSessoesConferencia();
 
 		if (lstSessoesTO != null && !lstSessoesTO.isEmpty()) {
 			//System.out.println("sessoes conf. size= " + lstSessoesTO.size() );

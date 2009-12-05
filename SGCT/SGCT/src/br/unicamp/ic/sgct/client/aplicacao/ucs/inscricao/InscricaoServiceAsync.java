@@ -10,4 +10,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface InscricaoServiceAsync {
 
 	void inscrever(UsuarioTO usuario, AsyncCallback<UsuarioTO> callback);
+	
 }

@@ -89,7 +89,7 @@ public class Preletor extends Usuario {
 	        + super.toString() + TAB
 	        + "id = " + this.id + TAB
 	        + "instituicao = " + this.instituicao + TAB
-	        + "trabalho = " + (this.trabalho != null ? this.trabalho + TAB : "NULL ")
+	        + "trabalho = " + (this.trabalho != null ? this.trabalho.getTitulo() + TAB : "NULL ")
 	        + " )";
 	
 	    return retValue;

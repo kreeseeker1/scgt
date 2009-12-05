@@ -1,14 +1,16 @@
 package br.unicamp.ic.sgct.server.dominio.entidades;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
-
 import it.biobytes.ammentos.AutomaticType;
 import it.biobytes.ammentos.FieldTypeEnum;
 import it.biobytes.ammentos.PersistentEntity;
 import it.biobytes.ammentos.PersistentField;
+import it.biobytes.ammentos.PersistentList;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
 
 @SuppressWarnings("serial")
 @PersistentEntity(sourceDomain = "T_USUARIO", primaryKey = "id_usuario", validator = "br.unicamp.ic.sgct.server.validation.InscricaoValidator")
@@ -19,8 +21,11 @@ public class Usuario implements Serializable {
 	@PersistentField(size="08")
 	private String senha;
 
-	@PersistentField(size="01")
-	private String inscricaoAtiva;
+	//@PersistentField(size="01")
+	//private String inscricaoAtiva;
+	
+	@PersistentList(query = "id_usuario=?", cascadeOnSave = true, cascadeOnDelete = false, deleteOnRemove = false)
+	private List<Inscricao> inscUsuario;
 
 	@PersistentField(size="30")
 	private String email;
@@ -60,7 +65,7 @@ public class Usuario implements Serializable {
 	public Usuario(UsuarioTO to) {
 		this.senha = to.getSenha();
 		this.email = to.getEmail();
-		this.inscricaoAtiva = to.getInscricaoAtiva();
+		//this.inscricaoAtiva = to.getInscricaoAtiva();
 		this.dataEfetivacaoPagto = to.getDataEfetivacaoPagto();
 		// System.out.println("Usuario.dataEfetivacaoPagto: " + this.dataEfetivacaoPagto);
 		
@@ -87,16 +92,28 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 	
-	public String getInscricaoAtiva() {
-		return inscricaoAtiva;
-	}
-	public void setInscricaoAtiva(String inscricaoAtiva) {
-		this.inscricaoAtiva = inscricaoAtiva;
-	}
+//	public String getInscricaoAtiva() {
+//		return inscricaoAtiva;
+//	}
+//	public void setInscricaoAtiva(String inscricaoAtiva) {
+//		this.inscricaoAtiva = inscricaoAtiva;
+//	}
 	
 	public String getEmail() {
 		return email;
 	}
+	public List<Inscricao> getInscUsuario() {
+		return inscUsuario;
+	}
+
+	public void setInscUsuario(List<Inscricao> inscUsuario) {
+		this.inscUsuario = inscUsuario;
+	}
+	
+	public void addInscUsuario(Inscricao inscricao){
+		this.inscUsuario.add(inscricao);
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
