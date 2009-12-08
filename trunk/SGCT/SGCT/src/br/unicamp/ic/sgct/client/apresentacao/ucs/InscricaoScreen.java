@@ -20,9 +20,11 @@ import br.unicamp.ic.sgct.client.apresentacao.widgets.MensagemUI;
 import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
 import br.unicamp.ic.sgct.client.dominio.to.ConferenciaTO;
 import br.unicamp.ic.sgct.client.dominio.to.InscricaoTO;
+import br.unicamp.ic.sgct.client.dominio.to.Inscricao_SessaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.PessoaTO;
 import br.unicamp.ic.sgct.client.dominio.to.SessaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
+import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao_Sessao;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -345,6 +347,8 @@ public class InscricaoScreen extends BaseScreen implements TableListener, ClickL
 			inscricaoTO.setDt_pagamento( _dtTimeFormat.parse( strDataPagto ));
 			inscricaoTO.setSituacao(1);
 			
+			List<Inscricao_SessaoTO> listInscricaoSessaoTO = new ArrayList<Inscricao_SessaoTO>();
+			
 			for (SessaoTO sessoesConfTO : lstSessoesTO) {
 				
 				for (Iterator iterator = sessoesSelecionadas.iterator(); iterator.hasNext();) {
@@ -352,10 +356,16 @@ public class InscricaoScreen extends BaseScreen implements TableListener, ClickL
 					
 					if (sessoes.equalsIgnoreCase(sessoesConfTO.getData() + " - " + sessoesConfTO.getTema())) {
 
-						inscricaoTO.addSessoesInscricao(sessoesConfTO);	
+						Inscricao_SessaoTO inscricao_SessaoTO = new Inscricao_SessaoTO();
+						inscricao_SessaoTO.setInscricao(inscricaoTO);
+						inscricao_SessaoTO.setSessao(sessoesConfTO);	
+						listInscricaoSessaoTO.add(inscricao_SessaoTO);
+						
 					}
 				}
 			}
+			
+			this.usuario.setListInscricaoSessaoTO(listInscricaoSessaoTO);
 			
 			this.usuario.addInscUsuario(inscricaoTO);
 			

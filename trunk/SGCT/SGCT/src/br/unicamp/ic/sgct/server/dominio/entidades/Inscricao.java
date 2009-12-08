@@ -13,13 +13,11 @@ import java.util.List;
 @SuppressWarnings("serial")
 @PersistentEntity(sourceDomain = "T_INSCRICAO", primaryKey = "id_insc")
 public class Inscricao implements Serializable{
-	public static final String PERSISTENCE_DOMAIN = "T_INSCRICAO";
-	
 	@PersistentField(fieldName="id_insc", automatic=true, automaticType=AutomaticType.FRAMEWORK)
 	private long id;
 	
-	@PersistentList(query = "id_insc=?", cascadeOnSave = true, cascadeOnDelete = false, deleteOnRemove = false)
-	private List<Sessao> sessoesInscricao;
+	@PersistentList(query = "id_insc_sessao=?", cascadeOnSave = true, cascadeOnDelete = false, deleteOnRemove = false)
+	private List<Inscricao_Sessao> inscricao_sessao;
 	
 	@PersistentField(type=FieldTypeEnum.DATE)
 	private Date dt_inscricao;
@@ -44,9 +42,9 @@ public class Inscricao implements Serializable{
 	 * @param dt_pagamento
 	 * @param situacao
 	 */
-	public Inscricao(List<Sessao> sessoes, Date dt_inscricao, Date dt_pagamento, int situacao) {
+	public Inscricao(List<Inscricao_Sessao> inscricao_sessao, Date dt_inscricao, Date dt_pagamento, int situacao) {
 		super();
-		this.sessoesInscricao = sessoes; 
+		this.inscricao_sessao = inscricao_sessao; 
 		this.dt_inscricao = dt_inscricao;
 		this.dt_pagamento = dt_pagamento;
 		this.situacao = situacao;
@@ -68,16 +66,16 @@ public class Inscricao implements Serializable{
 		this.usuario = usuario;
 	}
 
-	public List<Sessao> getSessoesInscricao() {
-		return sessoesInscricao;
+	public List<Inscricao_Sessao> geInscricao_Sessao() {
+		return inscricao_sessao;
 	}
 
-	public void setSessoesInscricao(List<Sessao> sessoesInscricao) {
-		this.sessoesInscricao = sessoesInscricao;
+	public void setSessoesInscricao(List<Inscricao_Sessao> inscricao_Sessao) {
+		this.inscricao_sessao = inscricao_Sessao;
 	}
 	
-	public void addSessoesInscricao(Sessao sessoesInscricao) {
-		this.sessoesInscricao.add(sessoesInscricao);
+	public void addSessoesInscricao(Inscricao_Sessao inscricao_Sessao) {
+		this.inscricao_sessao.add(inscricao_Sessao);
 	}
 
 	public Date getDt_inscricao() {

@@ -43,3 +43,5 @@ INSERT INTO T_PRELETOR (ID_USUARIO, INSTITUICAO) VALUES (1258794607608, 'GOOGLE 
 INSERT INTO T_TRABALHO VALUES (1258794607608, 2, 'Serviços hospedados de arquivamento e segurança para o seu negócio', 'Google postini services')
 
 INSERT INTO T_APRES (duracao, horarioInicio, id_apres, id_sessaoconf, id_usuario) VALUES (2, 13, 2, 1, 1258794607608)
+
+UPDATE T_APRES SET ID_TRABALHO = 1
