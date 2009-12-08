@@ -11,6 +11,7 @@ import br.unicamp.ic.sgct.client.aplicacao.ucs.cancelamento.CancelamentoService;
 import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
 import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao;
+import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao_Sessao;
 import br.unicamp.ic.sgct.server.dominio.entidades.Usuario;
 import br.unicamp.ic.sgct.server.recursos.persistencia.AmmentosConnection;
 
@@ -42,6 +43,7 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 
 	public void cancelar(UsuarioTO usuario) throws InfraException {
 		List<Usuario> lstUsuario;
+		List<Inscricao_Sessao> listInscricaoSessao;
 		System.out
 				.println("\nCancelamentoServiceImpl :: cancelar(Usuario) acionado");
 
@@ -54,6 +56,8 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 					new SqlQueryFilter("email like '" + usuarioPersist.getEmail() + 
 							"' and senha like '" + usuarioPersist.getSenha() + "'"));
 
+			listInscricaoSessao = Ammentos.load(Inscricao_Sessao.class, new SqlQueryFilter("id_insc like '" +lstUsuario.get(0).getInscUsuario().get(0).getId()+ "'"));
+			
 			if (lstUsuario != null && lstUsuario.isEmpty()) {
 				throw new InfraException("Usu\u00e1rio n\u00e3o se encontra " +
 						"inscrito para o evento!"); 
@@ -75,7 +79,7 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 				
 				for (Inscricao inscricao : lstUsuario.get(0).getInscUsuario()) {
 					if (inscricao.getSituacao() == 3) {
-						throw new InfraException("Usu\u00e1rio j\u00e1 est\u00e1 " +
+						throw new InfraException("Usu\u00e1rio n\u00e3o se encontra mais " +
 						"inscrito para o evento!");
 					}
 				}
@@ -89,16 +93,19 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 					// Atualiza atributo INSCRICAOATIVA para 'N'
 					//lstUsuario.get(0).setInscricaoAtiva("N");
 					
-					Inscricao inscricao = new Inscricao();
-					inscricao.setSituacao(3);
-					lstUsuario.get(0).addInscUsuario(inscricao);
+					lstUsuario.get(0).getInscUsuario().get(0).setSituacao(3);
 					
 					// Processa o cancelamento do usuario
 					Ammentos.openTransaction();
 	
 					Ammentos.save ( lstUsuario.get(0) );
 					Ammentos.save ( lstUsuario.get(0).getPessoa() );
+					Ammentos.save( lstUsuario.get(0).getInscUsuario().get(0) );
 	
+					for (Inscricao_Sessao inscricao_Sessao : listInscricaoSessao) {
+						Ammentos.delete(inscricao_Sessao);
+					}
+					
 					Ammentos.commitTransaction();
 			
 				}

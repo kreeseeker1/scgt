@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao;
-
 
 @SuppressWarnings("serial")
 public class SessaoTO implements Serializable {
@@ -18,7 +16,6 @@ public class SessaoTO implements Serializable {
 	private SalaTO sala;
 	private List<ApresentacaoTO> apresentacoes;
 	private ConferenciaTO conferencia;
-	private InscricaoTO inscricao;
 	private String tema;
 	private Periodo periodo;
 
@@ -89,11 +86,4 @@ public class SessaoTO implements Serializable {
 		this.periodo = periodo;
 	}
 
-	public InscricaoTO getInscricao() {
-		return inscricao;
-	}
-
-	public void setInscricao(InscricaoTO inscricao) {
-		this.inscricao = inscricao;
-	}
 }

@@ -12,6 +12,7 @@ public class UsuarioTO implements Serializable {
 	private String email;
 	//private String inscricaoAtiva;
 	private List<InscricaoTO> inscUsuario = new ArrayList<InscricaoTO>();
+	private List<Inscricao_SessaoTO> listInscricaoSessaoTO;
 	private PessoaTO pessoa;
 	private Date dataEfetivacaoPagto;
 
@@ -77,4 +78,14 @@ public class UsuarioTO implements Serializable {
 	public void setDataEfetivacaoPagto(Date dataEfetivacaoPagto) {
 		this.dataEfetivacaoPagto = dataEfetivacaoPagto;
 	}
+
+	public List<Inscricao_SessaoTO> getListInscricaoSessaoTO() {
+		return listInscricaoSessaoTO;
+	}
+
+	public void setListInscricaoSessaoTO(
+			List<Inscricao_SessaoTO> listInscricaoSessaoTO) {
+		this.listInscricaoSessaoTO = listInscricaoSessaoTO;
+	}
+	
 }

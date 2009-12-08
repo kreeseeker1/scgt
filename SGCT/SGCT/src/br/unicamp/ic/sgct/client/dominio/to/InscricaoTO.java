@@ -1,7 +1,6 @@
 package br.unicamp.ic.sgct.client.dominio.to;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class InscricaoTO implements Serializable {
 	private Date dt_inscricao;
 	private Date dt_pagamento;
 	private int situacao;
-	private List<SessaoTO> sessoesInscricao = new ArrayList<SessaoTO>();
+	private List<Inscricao_SessaoTO> inscricao_sessao;;
 	
 	public InscricaoTO() {
 	}
@@ -41,14 +40,16 @@ public class InscricaoTO implements Serializable {
 	public void setSituacao(int situacao) {
 		this.situacao = situacao;
 	}
-	public List<SessaoTO> getSessoesInscricao() {
-		return sessoesInscricao;
+	public List<Inscricao_SessaoTO> geInscricao_Sessao() {
+		return inscricao_sessao;
 	}
-	public void setSessoesInscricao(List<SessaoTO> sessoesInscricao) {
-		this.sessoesInscricao = sessoesInscricao;
+
+	public void setSessoesInscricao(List<Inscricao_SessaoTO> inscricao_Sessao) {
+		this.inscricao_sessao = inscricao_Sessao;
 	}
-	public void addSessoesInscricao(SessaoTO sessoesInscricaoTO) {
-		this.sessoesInscricao.add(sessoesInscricaoTO);
+	
+	public void addSessoesInscricao(Inscricao_SessaoTO inscricao_Sessao) {
+		this.inscricao_sessao.add(inscricao_Sessao);
 	}
 	
 }
