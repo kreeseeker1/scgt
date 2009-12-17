@@ -4,11 +4,13 @@ import it.biobytes.ammentos.Ammentos;
 import it.biobytes.ammentos.PersistenceException;
 import it.biobytes.ammentos.query.SqlQueryFilter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import br.unicamp.ic.sgct.client.aplicacao.ucs.cancelamento.CancelamentoService;
 import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
+import br.unicamp.ic.sgct.client.dominio.to.InscricaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
 import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao;
 import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao_Sessao;
@@ -24,23 +26,35 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 		CancelamentoService {
 
+	//INICIO - EXERCICIO 5
+	
 	private boolean aceitarCancelamento(Date dataAtual, Date dataEfetivacaoPagamento) {
 		
 		System.out.println(dataEfetivacaoPagamento);
 		System.out.println(dataAtual);
-
+		
 		int MSEGUNDOS_DIA = 24 * 60 * 60 * 1000;
-		int diferenca = (int)((dataAtual.getTime() - 
-				dataEfetivacaoPagamento.getTime()) / MSEGUNDOS_DIA); 
+		int diferenca = 0;
+
+		Date dataAux = new Date(dataAtual.getTime() - MSEGUNDOS_DIA);
+
+		while(dataAux.after(dataEfetivacaoPagamento)){
+
+			if (dataAux.getDay() != 0 && dataAux.getDay() != 6){
+				diferenca++;
+				dataAux = new Date(dataAux.getTime() - MSEGUNDOS_DIA);
+			}
+		}
 
 		if (diferenca > 7) {
- 			return false;
-		}
-		else {
+			return false;
+		}else {
 			return true;
 		}
 	}
-
+	
+	// FIM - EXERCICIO 5
+	
 	public void cancelar(UsuarioTO usuario) throws InfraException {
 		List<Usuario> lstUsuario;
 		List<Inscricao_Sessao> listInscricaoSessao;
@@ -56,12 +70,13 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 					new SqlQueryFilter("email like '" + usuarioPersist.getEmail() + 
 							"' and senha like '" + usuarioPersist.getSenha() + "'"));
 
-			listInscricaoSessao = Ammentos.load(Inscricao_Sessao.class, new SqlQueryFilter("id_insc like '" +lstUsuario.get(0).getInscUsuario().get(0).getId()+ "'"));
-			
 			if (lstUsuario != null && lstUsuario.isEmpty()) {
 				throw new InfraException("Usu\u00e1rio n\u00e3o se encontra " +
 						"inscrito para o evento!"); 
 			}
+			
+			listInscricaoSessao = Ammentos.load(Inscricao_Sessao.class, new SqlQueryFilter("id_insc like '" +lstUsuario.get(0).getInscUsuario().get(0).getId()+ "'"));
+			
 			if (lstUsuario != null && !lstUsuario.isEmpty()) {
 				// Verifica se h� mais de um usu�rio registrado com o mesmo
 				// email e senha
@@ -120,5 +135,39 @@ public class CancelamentoServiceImpl extends RemoteServiceServlet implements
 		catch (PersistenceException e) {
 			throw new InfraException("InfraException: " + e.getMessage());
 		}
+	}
+	
+	
+	
+	public List<InscricaoTO> listarInscricoes(UsuarioTO usuario) throws InfraException, Exception {
+		List<Usuario> lstUsuario;
+		List<InscricaoTO> listInscricaoTO = new ArrayList<InscricaoTO>();
+		
+		try {
+			
+			//Usuario usuarioPersist = new Usuario(usuario);
+			
+			AmmentosConnection.instance();
+
+			lstUsuario = Ammentos.load(Usuario.class,
+					new SqlQueryFilter("email like '" + usuario.getEmail() + 
+							"' and senha like '" + usuario.getSenha() + "'"));
+			
+			
+			if (lstUsuario != null && lstUsuario.isEmpty()) {
+				throw new InfraException("Usu\u00e1rio n\u00e3o se encontra " +
+						"inscrito para nenhum evento!"); 
+			}
+			
+			List<Inscricao> listInscricaoBD = Ammentos.load(Inscricao.class,
+					new SqlQueryFilter("id_usuario = '" + lstUsuario.get(0).getId() + 
+							"'"));
+			
+			
+		} catch (PersistenceException e) {
+			throw new InfraException("InfraException: " + e.getMessage());
+		}
+		
+		return listInscricaoTO;
 	}
 }

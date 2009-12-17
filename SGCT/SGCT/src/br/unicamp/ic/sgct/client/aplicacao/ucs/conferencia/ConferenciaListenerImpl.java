@@ -13,11 +13,9 @@ import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
 import br.unicamp.ic.sgct.client.dominio.to.ConferenciaTO;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ConferenciaListenerImpl extends BaseListenerImpl implements ConferenciaListener {
 	private BaseScreen screen;

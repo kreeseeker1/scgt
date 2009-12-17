@@ -2,11 +2,10 @@ package br.unicamp.ic.sgct.client.aplicacao.ucs.conferencia;
 
 import org.gwtiger.client.screen.BaseScreen;
 
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-
 import br.unicamp.ic.sgct.client.aplicacao.comum.BaseListener;
 import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
+
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public interface ConferenciaListener extends BaseListener {
 

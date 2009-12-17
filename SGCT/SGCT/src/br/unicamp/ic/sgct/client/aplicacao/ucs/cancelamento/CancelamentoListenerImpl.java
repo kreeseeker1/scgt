@@ -1,8 +1,15 @@
 package br.unicamp.ic.sgct.client.aplicacao.ucs.cancelamento;
 
+import java.util.List;
+
+import org.gwtiger.client.screen.BaseScreen;
+
 import br.unicamp.ic.sgct.client.SisGesConfTec;
 import br.unicamp.ic.sgct.client.aplicacao.comum.BaseListenerImpl;
+import br.unicamp.ic.sgct.client.apresentacao.ucs.CancelamentoScreen;
 import br.unicamp.ic.sgct.client.apresentacao.widgets.MensagemUI;
+import br.unicamp.ic.sgct.client.dominio.exception.InfraException;
+import br.unicamp.ic.sgct.client.dominio.to.InscricaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
 
 import com.google.gwt.core.client.GWT;
@@ -15,6 +22,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
  */
 public class CancelamentoListenerImpl extends BaseListenerImpl implements
 		CancelamentoListener {
+	private BaseScreen screen;
 	private CancelamentoServiceAsync service = GWT
 			.create(CancelamentoService.class);
 
@@ -46,5 +54,29 @@ public class CancelamentoListenerImpl extends BaseListenerImpl implements
 		};
 		// Make the call to the service.
 		service.cancelar(usuario, callback);
+	}
+	
+	
+	public void listarInscricoes(UsuarioTO usuario) throws InfraException, Exception {
+
+		service.listarInscricoes(usuario, new AsyncCallback<List<InscricaoTO>>() {
+			public void onSuccess(List<InscricaoTO> result) {
+				setInscricoes( result );
+			}
+
+			public void onFailure(Throwable caught){
+				setMensagemErro( caught.getMessage() );
+				
+			}
+		});
+	}
+	
+	public void setBaseScreen(BaseScreen screen) {
+		this.screen = screen;
+	}
+
+	private void setInscricoes(List<InscricaoTO> inscricao) {
+		if (this.screen instanceof CancelamentoScreen)
+			((CancelamentoScreen) this.screen).setInscricoes(inscricao);
 	}
 }

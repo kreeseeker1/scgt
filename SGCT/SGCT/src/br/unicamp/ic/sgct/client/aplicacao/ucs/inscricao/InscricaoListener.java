@@ -10,4 +10,5 @@ public interface InscricaoListener extends BaseListener {
 	 * que deve ser unico dentre usuarios cadastrados.
 	 */
 	public abstract void inscrever(UsuarioTO usuario);
+	
 }
