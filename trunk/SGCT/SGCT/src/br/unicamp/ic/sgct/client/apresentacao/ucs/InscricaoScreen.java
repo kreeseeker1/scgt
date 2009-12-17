@@ -24,7 +24,6 @@ import br.unicamp.ic.sgct.client.dominio.to.Inscricao_SessaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.PessoaTO;
 import br.unicamp.ic.sgct.client.dominio.to.SessaoTO;
 import br.unicamp.ic.sgct.client.dominio.to.UsuarioTO;
-import br.unicamp.ic.sgct.server.dominio.entidades.Inscricao_Sessao;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

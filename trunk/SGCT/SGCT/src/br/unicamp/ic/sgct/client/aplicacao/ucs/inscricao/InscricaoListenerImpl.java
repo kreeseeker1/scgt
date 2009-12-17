@@ -47,4 +47,5 @@ public class InscricaoListenerImpl extends BaseListenerImpl implements
 		// Make the call to the service.
 		service.inscrever(usuario, callback);
 	}
+
 }
