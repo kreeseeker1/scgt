@@ -1,6 +1,7 @@
 package br.unicamp.ic.sgct.client.dominio.to;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class InscricaoTO implements Serializable {
 	private Date dt_inscricao;
 	private Date dt_pagamento;
 	private int situacao;
-	private List<Inscricao_SessaoTO> inscricao_sessao;;
+	private List<Inscricao_SessaoTO> inscricao_sessao = new ArrayList<Inscricao_SessaoTO>();
 	
 	public InscricaoTO() {
 	}
